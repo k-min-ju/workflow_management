@@ -1,0 +1,139 @@
+@use '@/app/styles/variables.scss' as variables;
+
+$left: left;
+$center: center;
+$separator-gap: 20px;
+$rem-font-size: 0.7rem;
+$border-radius: 5px;
+
+.loginContainer {
+  display: flex;
+  justify-content: $center;
+  align-items: $center;
+  height: 100%;
+
+  .loginTitle {
+    display: flex;
+    align-items: $center;
+    height: 210px;
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+  }
+
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: $center;
+    width: 400px;
+    height: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: variables.$bg-white-color;
+    border-radius: $border-radius;
+
+    .errorMessage {
+      width: 100%;
+      text-align: $left;
+      margin-bottom: 10px;
+
+      .message {
+        color: variables.$font-red-color;
+        font-size: $rem-font-size;
+      }
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      background-color: variables.$bg-white-color;
+      border: 1px solid #ccc;
+      border-radius: $border-radius;
+      color: variables.$font-black-color;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2875E6;
+      color: variables.$font-white-color;
+      border: none;
+      border-radius: $border-radius;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2363C5FF;
+    }
+  }
+
+  .separator {
+    display: inline-block;
+    width: 100%;
+    text-align: $center;
+    position: relative;
+    padding: 10px 0;
+    font-size: $rem-font-size;
+    color: variables.$bg-grey-color;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 120px;
+      border-top: 1px solid variables.$bg-grey-color;
+    }
+
+    &::before {
+      left: $separator-gap;
+    }
+
+    &::after {
+      right: $separator-gap;
+    }
+
+    span {
+      background-color: variables.$bg-white-color;
+      padding: 0 10px;
+    }
+  }
+
+  .signUp {
+    color: variables.$font-black-color;
+    text-decoration: underline;
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: $rem-font-size;
+  }
+
+  .socialLoginArea {
+    .googleLogin {
+      display: inline-block;
+      border: none;
+      background-color: variables.$bg-white-color;
+      padding: 0;
+      cursor: pointer;
+      border-radius: 50%;
+      overflow: hidden;
+
+      .googleLoginImg {
+        width: 20px;
+        height: 20px;
+        object-fit: cover;
+      }
+
+      &:hover {
+        opacity: 0.8;
+        background-color: variables.$bg-white-color;
+      }
+    }
+  }
+}
