@@ -1,18 +1,7 @@
-import type { Metadata } from 'next';
 import React from 'react';
-import localFont from 'next/font/local';
+import type { Metadata } from 'next';
+import CustomSessionProvider from '@/app/context/CustomSessionProvider';
 import '@/app/styles/globals.scss';
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900'
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900'
-});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,10 +12,12 @@ export default function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): React.JSX.Element {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
+    <html lang="ko">
+      <body>
+        <CustomSessionProvider>{children}</CustomSessionProvider>
+      </body>
     </html>
   );
 }
