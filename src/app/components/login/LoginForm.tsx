@@ -1,18 +1,19 @@
-'use client';
 import React, { ChangeEvent, useState } from 'react';
-import { signIn, SignInResponse, useSession } from 'next-auth/react';
 import { UseState } from '@/types/common';
 import styles from '@/app/styles/login-form.module.scss';
+import GoogleLogin from '@/app/components/login/GoogleLogin';
+import LoginHeader from '@/app/components/login/LoginHeader';
 
+/**
+ * Login related processing components
+ * @constructor
+ */
 export default function LoginForm(): React.JSX.Element {
-  const { data: session } = useSession();
   const [email, setEmail]: UseState<string> = useState<string>('');
   const [password, setPassword]: UseState<string> = useState<string>('');
   const [errorMessage, setErrorMessage]: UseState<string> = useState<string>('');
 
-  console.log('session', session);
-
-  const handleSubmit = (e: React.FormEvent): void => {
+  const loginSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     if (!email) {
       setErrorMessage('아이디를 입력해 주세요');
@@ -25,9 +26,7 @@ export default function LoginForm(): React.JSX.Element {
 
   return (
     <div className={styles.loginForm}>
-      <div className={styles.loginTitle}>
-        <h1 className={styles.title}>Workflow Management</h1>
-      </div>
+      <LoginHeader />
       <input
         type="text"
         placeholder="이메일을 입력하세요."
@@ -47,16 +46,14 @@ export default function LoginForm(): React.JSX.Element {
         </div>
       )}
 
-      <button onClick={handleSubmit}>이메일로 로그인</button>
+      <button onClick={loginSubmit}>이메일로 로그인</button>
 
       <a href="/signup" className={styles.signUp}>
         회원가입
       </a>
       <div className={styles.separator}>간편 로그인</div>
       <div className={styles.socialLoginArea}>
-        <button className={styles.googleLogin} onClick={(): Promise<SignInResponse | undefined> => signIn('google')}>
-          <img className={styles.googleLoginImg} src="/login_google.png" alt="google_login" />
-        </button>
+        <GoogleLogin />
       </div>
     </div>
   );
