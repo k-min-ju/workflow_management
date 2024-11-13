@@ -1,6 +1,7 @@
 import React from 'react';
-import type { Metadata } from 'next';
 import CustomSessionProvider from '@/app/context/CustomSessionProvider';
+import SessionExpiry from '@/app/components/SessionExpiry';
+import type { Metadata } from 'next';
 import '@/app/styles/globals.scss';
 
 export const metadata: Metadata = {
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <CustomSessionProvider>{children}</CustomSessionProvider>
+        <CustomSessionProvider>
+          <SessionExpiry />
+          {children}
+        </CustomSessionProvider>
       </body>
     </html>
   );
