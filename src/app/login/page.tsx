@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import LoginForm from '@/app/components/login/LoginForm';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import styles from '@/app/styles/login-form.module.scss';
+import styles from '@/app/components/login/login-form.module.scss';
 
 /**
  * Login Parent Component
