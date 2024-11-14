@@ -18,8 +18,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <CustomSessionProvider>
-          <SessionExpiry />
-          {children}
+          <SessionExpiry>{children}</SessionExpiry>
         </CustomSessionProvider>
       </body>
     </html>
