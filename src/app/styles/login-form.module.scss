@@ -33,7 +33,7 @@ $border-radius: 5px;
     height: 500px;
     margin: 0 auto;
     padding: 20px;
-    background-color: variables.$bg-white-color;
+    background-color: variables.$bg-primary-color;
     border-radius: $border-radius;
 
     .errorMessage {
@@ -42,7 +42,7 @@ $border-radius: 5px;
       margin-bottom: 10px;
 
       .message {
-        color: variables.$font-red-color;
+        color: #ff322e;
         font-size: $rem-font-size;
       }
     }
@@ -51,17 +51,17 @@ $border-radius: 5px;
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
-      background-color: variables.$bg-white-color;
+      background-color: variables.$bg-primary-color;
       border: 1px solid #ccc;
       border-radius: $border-radius;
-      color: variables.$font-black-color;
+      color: variables.$font-primary-color;
     }
 
     button {
       width: 100%;
       padding: 10px;
       background-color: #2875E6;
-      color: variables.$font-white-color;
+      color: variables.$font-second-color;
       border: none;
       border-radius: $border-radius;
       cursor: pointer;
@@ -79,7 +79,7 @@ $border-radius: 5px;
     position: relative;
     padding: 10px 0;
     font-size: $rem-font-size;
-    color: variables.$bg-grey-color;
+    color: variables.$bg-second-color;
 
     &::before,
     &::after {
@@ -87,7 +87,7 @@ $border-radius: 5px;
       position: absolute;
       top: 50%;
       width: 120px;
-      border-top: 1px solid variables.$bg-grey-color;
+      border-top: 1px solid variables.$bg-second-color;
     }
 
     &::before {
@@ -99,13 +99,13 @@ $border-radius: 5px;
     }
 
     span {
-      background-color: variables.$bg-white-color;
+      background-color: variables.$bg-primary-color;
       padding: 0 10px;
     }
   }
 
   .signUp {
-    color: variables.$font-black-color;
+    color: variables.$font-primary-color;
     text-decoration: underline;
     font-weight: bold;
     margin: 10px 0;
@@ -116,7 +116,7 @@ $border-radius: 5px;
     .googleLogin {
       display: inline-block;
       border: none;
-      background-color: variables.$bg-white-color;
+      background-color: variables.$bg-primary-color;
       padding: 0;
       cursor: pointer;
       border-radius: 50%;
@@ -130,7 +130,7 @@ $border-radius: 5px;
 
       &:hover {
         opacity: 0.8;
-        background-color: variables.$bg-white-color;
+        background-color: variables.$bg-primary-color;
       }
     }
   }

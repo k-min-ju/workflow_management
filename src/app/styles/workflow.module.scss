@@ -19,7 +19,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      color: variables.$font-black-color;
+      color: variables.$font-primary-color;
 
       .workflowTitle {
         font-size: 16px;
@@ -56,11 +56,17 @@
         font-size: 14px;
         font-weight: 500;
         color: #333;
+        margin-right: 20px;
 
         .userImage {
           width: 35px;
           border-radius: 30px;
         }
+      }
+
+      .signOut {
+        color: variables.$font-primary-color;
+        cursor: pointer;
       }
     }
   }
