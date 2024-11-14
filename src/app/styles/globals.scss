@@ -8,8 +8,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #{variables.$bg-grey-color};
-    --foreground: #{variables.$bg-white-color};
+    --background: #{variables.$bg-second-color};
+    --foreground: #{variables.$bg-primary-color};
   }
 }
 
