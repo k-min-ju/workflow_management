@@ -1,6 +1,6 @@
 import React from 'react';
 import { signIn } from 'next-auth/react';
-import styles from '@/app/styles/login-form.module.scss';
+import styles from '@/app/components/login/login-form.module.scss';
 
 /**
  * Google OAuth Login

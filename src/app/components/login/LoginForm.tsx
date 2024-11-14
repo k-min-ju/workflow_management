@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { UseState } from '@/types/common';
-import styles from '@/app/styles/login-form.module.scss';
+import styles from '@/app/components/login/login-form.module.scss';
 import GoogleLogin from '@/app/components/login/GoogleLogin';
 import LoginHeader from '@/app/components/login/LoginHeader';
 
