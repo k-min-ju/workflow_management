@@ -1,6 +1,6 @@
 @use '@/app/styles/variables' as variables;
 
-$separator-gap: 20px;
+$separator-gap: 70px;
 $rem-font-size: 0.7rem;
 $border-radius: 5px;
 
@@ -36,6 +36,10 @@ $border-radius: 5px;
     background-color: variables.$bg-primary-color;
     border-radius: $border-radius;
 
+    main {
+      width: 100%
+    }
+
     .errorMessage {
       width: 100%;
       text-align: left;
@@ -57,9 +61,10 @@ $border-radius: 5px;
       color: variables.$font-primary-color;
     }
 
-    button {
+    .loginBtn {
       width: 100%;
       padding: 10px;
+      margin-bottom: 15px;
       background-color: #2875E6;
       color: variables.$font-second-color;
       border: none;
@@ -67,7 +72,7 @@ $border-radius: 5px;
       cursor: pointer;
     }
 
-    button:hover {
+    .loginBtn:hover {
       background-color: #2363C5FF;
     }
   }
@@ -104,15 +109,21 @@ $border-radius: 5px;
     }
   }
 
-  .signUp {
-    color: variables.$font-primary-color;
-    text-decoration: underline;
-    font-weight: bold;
-    margin: 10px 0;
-    font-size: $rem-font-size;
+  nav {
+    margin-bottom: 10px;
+
+    .signUp {
+      color: variables.$font-primary-color;
+      text-decoration: underline;
+      font-weight: bold;
+      margin: 10px 0;
+      font-size: $rem-font-size;
+    }
   }
 
   .socialLoginArea {
+    text-align: center;
+
     .googleLogin {
       display: inline-block;
       border: none;
