@@ -107,13 +107,9 @@ $aside-height: $header-height + 20px;
           color: black;
           text-align: center;
           margin-bottom: 20px;
+          cursor: grab;
         }
       }
     }
   }
 }
-
-.react-flow__panel.react-flow__attribution {
-  display: none !important;
-}
-

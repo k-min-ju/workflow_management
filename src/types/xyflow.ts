@@ -29,4 +29,5 @@ export interface CreateNodeObjectProps {
   className: string;
   muiIcon: React.ReactElement<SvgIconComponent>;
   labelText: string;
+  nodeType: FLOW_OBJECT_COLOR_KEY;
 }
