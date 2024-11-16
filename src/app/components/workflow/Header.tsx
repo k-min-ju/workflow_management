@@ -13,7 +13,6 @@ export default function Header(): React.JSX.Element {
       </div>
       <div className={styles.headerRight}>
         <button className={styles.shareButton}>Share</button>
-        <button className={styles.saveButton}>Save</button>
         <div className={styles.userName}>
           {status === 'authenticated' && session?.user?.image && (
             <img className={styles.userImage} src={session?.user?.image} alt="user_image" />

@@ -19,8 +19,12 @@ export default function Workflow(): React.JSX.Element {
 
   return (
     <div className={styles.workflowContainer}>
-      <Header />
-      <XYFlow />
+      <header>
+        <Header />
+      </header>
+      <main>
+        <XYFlow />
+      </main>
     </div>
   );
 }
