@@ -4,9 +4,8 @@ import { JWT } from 'next-auth/jwt';
 import { User } from 'next-auth/core/types';
 import type { AdapterUser } from 'next-auth/adapters';
 import type { AuthOptions } from 'next-auth/src';
-import db from '@/firebase/config';
-import { doc, DocumentReference, DocumentSnapshot, getDoc, setDoc } from '@firebase/firestore';
 import { EXPIRES_AT } from '@/app/configs/constants';
+import { googleSignIn } from '@/app/services/googleAuthService';
 
 const handler: AuthOptions = NextAuth({
   // Authentication providers setup
@@ -38,18 +37,9 @@ const handler: AuthOptions = NextAuth({
     // Callback function executed after login
     async signIn({ user, account }: { user: User | AdapterUser; account: Account | null }): Promise<boolean> {
       if (account?.provider === 'google') {
-        const userRef: DocumentReference = doc(db, 'users', user.email!);
-        const docSnapshot: DocumentSnapshot = await getDoc(userRef);
-
-        if (!docSnapshot.exists()) {
-          await setDoc(userRef, {
-            name: user.name,
-            email: user.email,
-            image: user.image,
-            googleId: account.providerAccountId
-          });
-        }
+        await googleSignIn({ name: user.name!, email: user.email!, googleId: account.providerAccountId });
       }
+
       return true;
     }
   }
