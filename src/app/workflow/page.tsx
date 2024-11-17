@@ -1,15 +1,17 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import Header from '@/app/components/workflow/Header';
 import XYFlow from '@/app/components/workflow/XYFlow';
 import styles from '@/app/components/workflow/workflow.module.scss';
+import { UseState } from '@/types/common';
 
 export default function Workflow(): React.JSX.Element {
   const { data: session, status } = useSession();
   const router: AppRouterInstance = useRouter();
+  const [workflowId, setWorkflowId]: UseState<string> = useState<string>('');
 
   useEffect((): void => {
     if (!session && status !== 'loading') {
@@ -20,10 +22,10 @@ export default function Workflow(): React.JSX.Element {
   return (
     <div className={styles.workflowContainer}>
       <header>
-        <Header />
+        <Header setWorkflowId={setWorkflowId} />
       </header>
       <main>
-        <XYFlow />
+        <XYFlow workflowId={workflowId} />
       </main>
     </div>
   );

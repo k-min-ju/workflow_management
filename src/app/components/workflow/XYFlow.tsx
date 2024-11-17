@@ -1,4 +1,4 @@
-import React, { DragEvent, useCallback, useRef, useState } from 'react';
+import React, { DragEvent, type MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import {
   addEdge,
   applyEdgeChanges,
@@ -12,37 +12,47 @@ import {
   ReactFlow,
   ReactFlowProvider
 } from '@xyflow/react';
-import { XYPosition } from '@xyflow/system';
-import { FLOW_OBJECT_COLOR_KEY, FLOW_OBJECT_COLOR_VALUE, FlowEdge, FlowNode } from '@/types/xyflow';
-import type { ReactFlowInstance } from '@xyflow/react/dist/esm/types';
-import { Connection } from '@xyflow/system/dist/esm/types/general';
+import { AxiosResponse } from 'axios';
 import Sidebar from '@/app/components/workflow/Sidebar';
+import { DATA_TRANSFER_TYPE, FLOW_NODE_PREFIX, FLOW_OBJECT_COLORS, WORKFLOW_ACTION } from '@/app/configs/constants';
 import { UseRef, UseState } from '@/types/common';
-import { DATA_TRANSFER_TYPE, FLOW_NODE_PREFIX, FLOW_OBJECT_COLORS } from '@/app/configs/constants';
+import { workflowAPI } from '@/app/services/workflow/workflowService';
+import { Connection } from '@xyflow/system/dist/esm/types/general';
+import { XYPosition } from '@xyflow/system';
+import type { ReactFlowInstance } from '@xyflow/react/dist/esm/types';
+import {
+  FLOW_OBJECT_COLOR_KEY,
+  FLOW_OBJECT_COLOR_VALUE,
+  FlowEdge,
+  FlowNode,
+  FlowObjectCommonRes,
+  WorkflowRequest,
+  XYFlowProps
+} from '@/types/xyflow';
+import { WorkflowAPI } from '@/types/workflowService';
 import '@xyflow/react/dist/style.css';
 import styles from '@/app/components/workflow/workflow.module.scss';
 
-export default function XYFlow(): React.JSX.Element {
-  const getId = (): string => `${FLOW_NODE_PREFIX}-${new Date().getTime()}`;
-  const sampleNodes: FlowNode[] = [
-    {
-      id: getId(),
-      type: 'input',
-      data: { label: 'input node' },
-      position: { x: 0, y: 0 },
-      style: { backgroundColor: FLOW_OBJECT_COLORS.input }
-    }
-  ];
-
-  const [nodes, setNodes]: UseState<FlowNode[]> = useState<FlowNode[]>(sampleNodes);
+export default function XYFlow({ workflowId }: XYFlowProps): React.JSX.Element {
+  const getId = useCallback((): string => `${FLOW_NODE_PREFIX}-${new Date().getTime()}`, []);
+  const [nodes, setNodes]: UseState<FlowNode[]> = useState<FlowNode[]>([]);
   const [edges, setEdges]: UseState<FlowEdge[]> = useState<FlowEdge[]>([]);
   const [XYflowInstance, setXYflowInstance]: UseState<ReactFlowInstance<FlowNode, FlowEdge> | null> =
     useState<ReactFlowInstance<FlowNode, FlowEdge> | null>(null);
   const flowWrapperRef: UseRef<HTMLDivElement> = useRef(null);
+  const { callInsertObject, callUpdateObject }: WorkflowAPI = workflowAPI();
 
-  const onInit = (instance: ReactFlowInstance<FlowNode, FlowEdge>): void => {
+  const addObject = useCallback(
+    async (insertObjectParam: WorkflowRequest<typeof WORKFLOW_ACTION.INSERT_FLOW_OBJECT>, newNode: FlowNode) => {
+      const insertResponse: AxiosResponse<FlowObjectCommonRes> = await callInsertObject(insertObjectParam);
+      if (insertResponse.status === 200) setNodes((nds: FlowNode[]): FlowNode[] => nds.concat(newNode));
+    },
+    []
+  );
+
+  const onInit = useCallback((instance: ReactFlowInstance<FlowNode, FlowEdge>): void => {
     setXYflowInstance(instance);
-  };
+  }, []);
 
   const onNodesChange = useCallback(
     (changes: NodeChange<FlowNode>[]): void =>
@@ -60,7 +70,7 @@ export default function XYFlow(): React.JSX.Element {
   );
 
   const onDrop = useCallback(
-    (event: DragEvent): void => {
+    async (event: DragEvent): Promise<void> => {
       event.preventDefault();
 
       const XYFlowBounds: DOMRect | undefined = flowWrapperRef.current?.getBoundingClientRect();
@@ -79,15 +89,32 @@ export default function XYFlow(): React.JSX.Element {
         data: { label: `${type} node` },
         style: { backgroundColor: FLOW_OBJECT_COLORS[type] }
       };
-      setNodes((nds: FlowNode[]): FlowNode[] => nds.concat(newNode));
+
+      const insertObjectParam: WorkflowRequest<typeof WORKFLOW_ACTION.INSERT_FLOW_OBJECT> = {
+        action: WORKFLOW_ACTION.INSERT_FLOW_OBJECT,
+        data: { workflowId, objectType: 'node', objectData: newNode as FlowNode }
+      };
+      await addObject(insertObjectParam, newNode);
     },
-    [XYflowInstance]
+    [XYflowInstance, workflowId]
   );
 
   const onDragOver = useCallback((event: DragEvent): void => {
     event.preventDefault();
     event.dataTransfer.dropEffect = 'move';
   }, []);
+
+  const onNodeDragStop = useCallback(
+    async (_event: ReactMouseEvent, node: FlowNode) => {
+      const { id, position }: FlowNode = node;
+      const updateObjectParam: WorkflowRequest<typeof WORKFLOW_ACTION.UPDATE_FLOW_OBJECT> = {
+        action: WORKFLOW_ACTION.UPDATE_FLOW_OBJECT,
+        data: { workflowId, objectType: 'node', objectData: { id, position } }
+      };
+      await callUpdateObject(updateObjectParam);
+    },
+    [workflowId]
+  );
 
   const nodeColor = (node: { type?: FLOW_OBJECT_COLOR_KEY | string }): FLOW_OBJECT_COLOR_VALUE => {
     switch (node.type) {
@@ -100,8 +127,21 @@ export default function XYFlow(): React.JSX.Element {
     }
   };
 
-  console.log(nodes);
-  console.log(edges);
+  useEffect(() => {
+    if (!workflowId) return;
+    const sampleNode: FlowNode = {
+      id: getId(),
+      type: 'input',
+      data: { label: 'input node' },
+      position: { x: 0, y: 0 },
+      style: { backgroundColor: FLOW_OBJECT_COLORS.input }
+    };
+    const insertObjectParam: WorkflowRequest<typeof WORKFLOW_ACTION.INSERT_FLOW_OBJECT> = {
+      action: WORKFLOW_ACTION.INSERT_FLOW_OBJECT,
+      data: { workflowId, objectType: 'node', objectData: sampleNode as FlowNode }
+    };
+    addObject(insertObjectParam, sampleNode).then();
+  }, [workflowId]);
 
   return (
     <ReactFlowProvider>
@@ -118,6 +158,7 @@ export default function XYFlow(): React.JSX.Element {
           onConnect={onConnect}
           onDrop={onDrop}
           onDragOver={onDragOver}
+          onNodeDragStop={onNodeDragStop}
           fitView
         >
           <Background color="#dadada" variant={BackgroundVariant.Lines} />
