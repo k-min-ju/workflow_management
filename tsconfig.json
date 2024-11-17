@@ -3,6 +3,9 @@
     "target": "ES2021",
     "baseUrl": ".",
     "paths": {
+      "next-auth/*": [
+        "./node_modules/next-auth/*"
+      ],
       "@/*": [
         "./src/*"
       ]
