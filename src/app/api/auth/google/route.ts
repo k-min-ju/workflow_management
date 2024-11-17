@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { doc, DocumentReference, DocumentSnapshot, getDoc, setDoc } from '@firebase/firestore';
 import db from '@/firebase/config';
+import { FIREBASE_COLLECTION } from '@/app/configs/constants';
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
@@ -10,7 +11,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       return NextResponse.json({ message: 'Missing required user data' }, { status: 400 });
     }
 
-    const userRef: DocumentReference = doc(db, 'googleUsers', email);
+    const userRef: DocumentReference = doc(db, FIREBASE_COLLECTION.GOOGLE_USER, email);
     const docSnapshot: DocumentSnapshot = await getDoc(userRef);
 
     if (!docSnapshot.exists()) {
