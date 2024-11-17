@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { signIn } from 'next-auth/react';
 import styles from '@/app/components/login/login-form.module.scss';
 
@@ -7,7 +7,8 @@ import styles from '@/app/components/login/login-form.module.scss';
  * @constructor
  */
 export default function GoogleLogin(): React.JSX.Element {
-  const googleLoginClick = async (): Promise<void> => {
+  const googleLoginClick = async (event: MouseEvent): Promise<void> => {
+    event.preventDefault();
     await signIn('google', { callbackUrl: '/workflow' });
   };
   return (

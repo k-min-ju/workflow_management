@@ -1,13 +1,13 @@
-import NextAuth, { Account, Session } from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { googleSignIn } from '@/app/services/googleAuthService';
+import { EXPIRES_AT } from '@/app/configs/constants';
 import { JWT } from 'next-auth/jwt';
+import { Account, Session } from 'next-auth/index';
 import { User } from 'next-auth/core/types';
 import type { AdapterUser } from 'next-auth/adapters';
-import type { AuthOptions } from 'next-auth/src';
-import { EXPIRES_AT } from '@/app/configs/constants';
-import { googleSignIn } from '@/app/services/googleAuthService';
 
-const handler: AuthOptions = NextAuth({
+const authOptions: NextAuthOptions = {
   // Authentication providers setup
   providers: [
     GoogleProvider({
@@ -44,6 +44,7 @@ const handler: AuthOptions = NextAuth({
     }
   },
   secret: process.env.NEXTAUTH_SECRET
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
