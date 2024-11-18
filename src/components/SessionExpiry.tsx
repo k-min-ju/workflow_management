@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import Spinner from '@/app/components/spinner/Spinner';
-import { EXPIRES_INTERVAL_TIME } from '@/app/configs/constants';
+import Spinner from '@/components/spinner/Spinner';
+import { EXPIRES_INTERVAL_TIME } from '@/configs/constants';
 
 /**
  * session expiration check component

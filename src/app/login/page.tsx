@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import LoginForm from '@/app/components/login/LoginForm';
-import styles from '@/app/components/login/login-form.module.scss';
+import LoginForm from '@/components/login/LoginForm';
+import styles from '@/components/login/login-form.module.scss';
 
 /**
  * Login Parent Component

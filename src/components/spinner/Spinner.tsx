@@ -1,7 +1,7 @@
 import React from 'react';
 import * as ReactSpinners from 'react-spinners';
-import { SpinnerProps, SpinnerTypeKeys } from '@/types/spinner';
-import styles from '@/app/components/spinner/spinner.module.scss';
+import { SpinnerProps, SpinnerTypeKeys } from '@/components/spinner/spinnerTypes';
+import styles from '@/components/spinner/spinner.module.scss';
 
 /**
  * https://www.davidhu.io/react-spinners/

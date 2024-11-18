@@ -4,8 +4,25 @@ import {
   deleteFlowObject,
   insertFlowObject,
   updateFlowObject
-} from '@/app/services/workflow/firebaseService';
-import { ObjectType, WorkflowAction } from '@/types/xyflow';
+} from '@/services/workflow/firebaseService';
+import { ObjectType, WorkflowAction } from '@/components/workflow/xyflowTypes';
+
+export async function GET<T>(req: Request): Promise<NextResponse<T>> {
+  try {
+    const { action, data } = await req.json();
+    switch (action as WorkflowAction) {
+      case 'getWorkflow': {
+        const workflowId: string | undefined = await createWorkflow(data);
+        return NextResponse.json({ workflowId } as T, { status: 200 });
+      }
+      default:
+        return NextResponse.json({ error: 'Invalid action' } as T, { status: 400 });
+    }
+  } catch (e) {
+    console.error('Error:', e);
+    return NextResponse.json({ error: 'Server error' } as T, { status: 500 });
+  }
+}
 
 export async function POST<T>(req: Request): Promise<NextResponse<T>> {
   try {

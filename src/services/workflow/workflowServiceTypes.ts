@@ -1,6 +1,6 @@
-import { CreateWorkflowRes, FlowObjectCommonRes, WorkflowRequest } from '@/types/xyflow';
-import { WORKFLOW_ACTION } from '@/app/configs/constants';
 import { AxiosResponse } from 'axios';
+import { WORKFLOW_ACTION } from '@/configs/constants';
+import { CreateWorkflowRes, FlowNode, FlowObjectCommonRes, WorkflowRequest } from '@/components/workflow/xyflowTypes';
 
 export interface WorkflowAPI {
   callCreateWorkflow: (
@@ -15,4 +15,5 @@ export interface WorkflowAPI {
   callDeleteObject: (
     _flowObjectData: WorkflowRequest<typeof WORKFLOW_ACTION.DELETE_FLOW_OBJECT>
   ) => Promise<AxiosResponse<FlowObjectCommonRes>>;
+  sendWorkflowToWebhook: (_flowObjectData: FlowNode) => Promise<AxiosResponse>;
 }

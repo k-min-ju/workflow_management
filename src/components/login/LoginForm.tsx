@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
 import { UseState } from '@/types/common';
-import styles from '@/app/components/login/login-form.module.scss';
-import GoogleLogin from '@/app/components/login/GoogleLogin';
-import LoginHeader from '@/app/components/login/LoginHeader';
+import styles from '@/components/login/login-form.module.scss';
+import GoogleLogin from '@/components/login/GoogleLogin';
+import LoginHeader from '@/components/login/LoginHeader';
 
 /**
  * Login related processing components

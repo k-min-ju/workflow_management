@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { googleSignIn } from '@/app/services/googleAuthService';
-import { EXPIRES_AT } from '@/app/configs/constants';
+import { googleSignIn } from '@/services/googleAuth/googleAuthService';
+import { EXPIRES_AT } from '@/configs/constants';
 import { JWT } from 'next-auth/jwt';
 import { Account, Session } from 'next-auth/index';
 import { User } from 'next-auth/core/types';

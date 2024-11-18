@@ -1,13 +1,13 @@
 import { addDoc, collection, deleteDoc, doc, DocumentReference, updateDoc } from '@firebase/firestore';
 import db from '@/firebase/config';
-import { FIREBASE_COLLECTION } from '@/app/configs/constants';
+import { FIREBASE_COLLECTION } from '@/configs/constants';
 import {
   CreateWorkflowData,
   DeleteFlowObjectData,
   InsertFlowObjectData,
   ObjectType,
   UpdateFlowObjectData
-} from '@/types/xyflow';
+} from '@/components/workflow/xyflowTypes';
 
 export const createWorkflow = async (data: CreateWorkflowData): Promise<string | undefined> => {
   try {

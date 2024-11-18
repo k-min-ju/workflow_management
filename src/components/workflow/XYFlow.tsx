@@ -13,10 +13,11 @@ import {
   ReactFlowProvider
 } from '@xyflow/react';
 import { AxiosResponse } from 'axios';
-import Sidebar from '@/app/components/workflow/Sidebar';
-import { DATA_TRANSFER_TYPE, FLOW_NODE_PREFIX, FLOW_OBJECT_COLORS, WORKFLOW_ACTION } from '@/app/configs/constants';
+import Sidebar from '@/components/workflow/Sidebar';
+import { workflowAPI } from '@/services/workflow/workflowService';
+import { DATA_TRANSFER_TYPE, FLOW_NODE_PREFIX, FLOW_OBJECT_COLORS, WORKFLOW_ACTION } from '@/configs/constants';
 import { UseRef, UseState } from '@/types/common';
-import { workflowAPI } from '@/app/services/workflow/workflowService';
+import { WorkflowAPI } from '@/services/workflow/workflowServiceTypes';
 import { Connection } from '@xyflow/system/dist/esm/types/general';
 import { XYPosition } from '@xyflow/system';
 import type { ReactFlowInstance } from '@xyflow/react/dist/esm/types';
@@ -28,10 +29,9 @@ import {
   FlowObjectCommonRes,
   WorkflowRequest,
   XYFlowProps
-} from '@/types/xyflow';
-import { WorkflowAPI } from '@/types/workflowService';
+} from '@/components/workflow/xyflowTypes';
 import '@xyflow/react/dist/style.css';
-import styles from '@/app/components/workflow/workflow.module.scss';
+import styles from '@/components/workflow/workflow.module.scss';
 
 export default function XYFlow({ workflowId }: XYFlowProps): React.JSX.Element {
   const getId = useCallback((): string => `${FLOW_NODE_PREFIX}-${new Date().getTime()}`, []);
@@ -46,6 +46,8 @@ export default function XYFlow({ workflowId }: XYFlowProps): React.JSX.Element {
     async (insertObjectParam: WorkflowRequest<typeof WORKFLOW_ACTION.INSERT_FLOW_OBJECT>, newNode: FlowNode) => {
       const insertResponse: AxiosResponse<FlowObjectCommonRes> = await callInsertObject(insertObjectParam);
       if (insertResponse.status === 200) setNodes((nds: FlowNode[]): FlowNode[] => nds.concat(newNode));
+      // const res = await sendWorkflowToWebhook(newNode);
+      // console.log('resresres', res);
     },
     []
   );

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { AxiosResponse } from 'axios';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { WorkflowAPI } from '@/types/workflowService';
-import { WORKFLOW_ACTION } from '@/app/configs/constants';
-import { workflowAPI } from '@/app/services/workflow/workflowService';
-import { CreateWorkflowRes, HeaderProps, WorkflowRequest } from '@/types/xyflow';
+import { WORKFLOW_ACTION } from '@/configs/constants';
+import { workflowAPI } from '@/services/workflow/workflowService';
 import { UseState } from '@/types/common';
-import styles from '@/app/components/workflow/workflow.module.scss';
+import { CreateWorkflowRes, HeaderProps, WorkflowRequest } from '@/components/workflow/xyflowTypes';
+import { WorkflowAPI } from '@/services/workflow/workflowServiceTypes';
+import styles from '@/components/workflow/workflow.module.scss';
 
 export default function Header({ setWorkflowId }: HeaderProps): React.JSX.Element {
   const { data: session, status } = useSession();
@@ -36,7 +36,7 @@ export default function Header({ setWorkflowId }: HeaderProps): React.JSX.Elemen
         <button className={styles.shareButton}>Share</button>
         <div className={styles.userName}>
           {status === 'authenticated' && session?.user?.image && (
-            <img className={styles.userImage} src={session?.user?.image} alt="user_image" />
+            <img className={styles.userImage} src={session.user.image} alt="user_image" />
           )}
         </div>
         <LogoutIcon className={styles.signOut} onClick={(): Promise<void> => signOut()} />
