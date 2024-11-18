@@ -1,10 +1,5 @@
 import { NextResponse } from 'next/server';
-import {
-  createWorkflow,
-  deleteFlowObject,
-  insertFlowObject,
-  updateFlowObject
-} from '@/services/workflow/firebaseService';
+import { createWorkflow, deleteFlowObject, insertFlowObject, updateFlowObject } from '@/firebase/firebaseService';
 import { ObjectType, WorkflowAction } from '@/components/workflow/xyflowTypes';
 
 export async function GET<T>(req: Request): Promise<NextResponse<T>> {
