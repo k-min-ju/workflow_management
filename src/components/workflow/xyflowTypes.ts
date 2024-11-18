@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { SvgIconComponent } from '@mui/icons-material';
-import { FIREBASE_COLLECTION, FLOW_OBJECT_COLORS, WORKFLOW_ACTION_DATA_MAP } from '@/app/configs/constants';
+import { FIREBASE_COLLECTION, FLOW_OBJECT_COLORS, WORKFLOW_ACTION_DATA_MAP } from '@/configs/constants';
 import { SetState } from '@/types/common';
 
 export interface HeaderProps {

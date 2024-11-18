@@ -2,8 +2,8 @@ import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-import CreateNodeObject from '@/app/components/workflow/CreateNodeObject';
-import styles from '@/app/components/workflow/workflow.module.scss';
+import CreateNodeObject from '@/components/workflow/CreateNodeObject';
+import styles from '@/components/workflow/workflow.module.scss';
 
 /**
  * Workflow Object creation Sidebar Component

@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import Header from '@/app/components/workflow/Header';
-import XYFlow from '@/app/components/workflow/XYFlow';
-import styles from '@/app/components/workflow/workflow.module.scss';
+import Header from '@/components/workflow/Header';
+import XYFlow from '@/components/workflow/XYFlow';
+import styles from '@/components/workflow/workflow.module.scss';
 import { UseState } from '@/types/common';
 
 export default function Workflow(): React.JSX.Element {

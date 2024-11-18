@@ -1,8 +1,8 @@
 import React from 'react';
-import CustomSessionProvider from '@/app/context/CustomSessionProvider';
-import SessionExpiry from '@/app/components/SessionExpiry';
+import CustomSessionProvider from '@/context/CustomSessionProvider';
+import SessionExpiry from '@/components/SessionExpiry';
 import type { Metadata } from 'next';
-import '@/app/styles/globals.scss';
+import '@/styles/globals.scss';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

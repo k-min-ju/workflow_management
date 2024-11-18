@@ -1,6 +1,6 @@
 import React, { DragEvent } from 'react';
-import { CreateNodeObjectProps, FLOW_OBJECT_COLOR_KEY } from '@/types/xyflow';
-import { DATA_TRANSFER_TYPE } from '@/app/configs/constants';
+import { DATA_TRANSFER_TYPE } from '@/configs/constants';
+import { CreateNodeObjectProps, FLOW_OBJECT_COLOR_KEY } from '@/components/workflow/xyflowTypes';
 
 /**
  * Workflow node object creation common components
